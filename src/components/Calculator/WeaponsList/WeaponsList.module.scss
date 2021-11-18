@@ -1,0 +1,29 @@
+.weaponsList {
+  max-height: 50vh;
+  overflow-y: scroll;
+  width: 80%;
+}
+
+.weapons {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 2vh;
+  grid-gap: 2vh;
+  gap: 2vh;
+  justify-content: space-between;
+  h2 {
+    margin: unset;
+  }
+}
+
+.total {
+  text-align: left;
+}
+
+@media (max-width: 800px) {
+  .weapons {
+    flex-direction: column;
+  }
+}
