@@ -9,6 +9,13 @@
     margin-top: -20px;
   }
   .description {
-    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:1vh;
+    gap: 1vh;
+    img {
+      width: 45px;
+    }
   }
 }

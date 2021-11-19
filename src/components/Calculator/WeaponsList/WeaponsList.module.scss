@@ -1,8 +1,3 @@
-.weaponsList {
-  max-height: 50vh;
-  overflow-y: scroll;
-  width: 80%;
-}
 
 .weapons {
   display: flex;
@@ -16,6 +11,20 @@
   h2 {
     margin: unset;
   }
+  .weaponsList {
+    max-height: 40vh;
+    overflow-y: scroll;
+    min-width: 80%;
+    .shoppingListHeader {
+        display: flex;
+        justify-content: space-between;
+        span {
+          margin-right: 2vh;
+          cursor: pointer;
+        }
+    }
+  }
+  
 }
 
 .total {

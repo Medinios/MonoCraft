@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react'
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,7 +7,8 @@ import Select from '@mui/material/Select';
 import classes from './Calculator.module.scss'
 import WeaponsList from './WeaponsList/WeaponsList';
 import Button from '@mui/material/Button';
-
+import { ApplicationContext } from '../../store';
+import ChunkPrices from './ChunkPrices/ChunkPrices';
 
 const Calculator = () => {
     const numbers = [1,2,3,4,5,6,7,8,9,10];
@@ -25,26 +26,28 @@ const Calculator = () => {
     {"id":12, "name":"CK Gas Granade","bars":{"copper":10,"iron":10, "steel":7, "gold":10, "titanium":2}} ,
     {"id":13, "name":"KSG-12 Shotgun","bars":{"iron":18, "steel":15, "silver":10, "gold":8, "titanium":5, "maple":3}} ,
     {"id":14, "name":"Aug A3","bars":{"copper":17,"iron":16, "steel":14, "silver":10, "gold":13, "titanium":4}} ,
-    {"id":15, "name":"XM8","bars":{"copper":11,"iron":11, "steel":14, "silver":22, "gold":13, "titanium":7}}]
+    {"id":15, "name":"XM8","bars":{"copper":11,"iron":11, "steel":14, "silver":22, "gold":13, "titanium":7}}];
     
+
+    const { state, dispatch } = useContext(ApplicationContext);
     const [weaponsList, setWeaponList] = React.useState([]);
 
-    const [amount, setAmount] = React.useState(undefined);
-    const [weaponData, setWeaponData] = React.useState(undefined);
+    const [amount, setAmount] = React.useState(0);
+    const [weaponData, setWeaponData] = React.useState();
 
     const setAmountHandler = (event) => {
         setAmount(event.target.value);
       };
 
     const setWeaponHandler = (event) => {
-        debugger
         const weapon = WEAPONS_DATA.filter((x) => x.id == event.target.value);
-        console.log(weapon);
         setWeaponData(weapon);
     };
 
     const addWeaponToCartHandler = () => {
-        setWeaponList([...weaponsList, {amount: amount , data:weaponData}]);
+        debugger
+        dispatch({type: 'add_weapon', payload: {amount: amount , data:weaponData}});
+        // setWeaponList([...weaponsList, {amount: amount , data:weaponData}]);
     }
 
     return (
@@ -81,8 +84,9 @@ const Calculator = () => {
             <Button variant="outlined" onClick={addWeaponToCartHandler}>Add To Basket</Button>
             </div>
             <div><small><b>Hint:</b> Choose your weapon and the amount and add to basket</small></div>
-        { weaponsList.length > 0 && <div className="weaponsList">
-            <WeaponsList weapons={weaponsList}></WeaponsList>
+            <ChunkPrices></ChunkPrices>
+        { state.weapons.length > 0 && <div className="weaponsList">
+            <WeaponsList></WeaponsList>
         </div>}
         </div>
         
